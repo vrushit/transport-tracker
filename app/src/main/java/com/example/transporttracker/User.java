@@ -12,7 +12,11 @@ public class User {
         this.status = status;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }
