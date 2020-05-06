@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "261371286948",
+    "firebase_url": "https://transport-tracker-c2d3e.firebaseio.com",
+    "project_id": "transport-tracker-c2d3e",
+    "storage_bucket": "transport-tracker-c2d3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261371286948:android:9246d47ec2a06d0b655d31",
+        "android_client_info": {
+          "package_name": "com.example.transporttracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261371286948-jtkbhn2grhken5nou09feg61b2o3ofn0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.transporttracker",
+            "certificate_hash": "44403c43a5642cc59f135497889e6e75d91c3813"
+          }
+        },
+        {
+          "client_id": "261371286948-3ld97rlqvqh44v6fvsoj6lfn04r95o52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcIQzummgsXLxHtZypYF3C4Be604dv5LU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261371286948-3ld97rlqvqh44v6fvsoj6lfn04r95o52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
