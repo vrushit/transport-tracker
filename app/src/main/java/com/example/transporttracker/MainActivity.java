@@ -42,5 +42,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == LOGIN_PERMISSION)
+        {
+            startNewActivity(resultCode, data);
+        }
+    }
+
+    private void startNewActivity(int resultCode, Intent data)
+    {
+        if(resultCode == RESULT_OK)
+        {
+            Intent intent = new Intent(MainActivity.this, ListOnLine.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
