@@ -68,6 +68,8 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
 
         //Init view
 
+        mLocationRequest = new LocationRequest();
+
         listOnline = (RecyclerView)findViewById(R.id.listOnline);
         listOnline.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -149,16 +151,17 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
                             );
         }
         else{
-            Toast.makeText(this, "Couldn't get the Location", Toast.LENGTH_SHORT).show();
+            Log.d("TEST", "Couldn't get the Location");
         }
 
     }
 
     private void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        mLocationRequest.setSmallestDisplacement(DISTANCE);
+
+//        LocationRequest mLocationRequest = LocationRequest.create();
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(3000);
+        mLocationRequest.setSmallestDisplacement(10);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
