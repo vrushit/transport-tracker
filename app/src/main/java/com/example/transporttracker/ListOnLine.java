@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -209,14 +210,25 @@ if(resultCode != ConnectionResult.SUCCESS)
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ListOnlineViewHolder holder, int position, @NonNull User model) {
+            protected void onBindViewHolder(@NonNull ListOnlineViewHolder holder, int position, @NonNull final User model) {
                 holder.textEmail.setText(model.getEmail());
 
+                //Implementing On Click Events
+                holder.itemClickListener = new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        //If model is current user, not set click event
+                        if(!model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                        {
+                            Intent map = new Intent(ListOnLine.this, TrackerActivity.class);
+                            map.putExtra("email", model.getEmail());
+                            map.putExtra("lat", mLastLocation.getLatitude());
+                            map.putExtra("lng", mLastLocation.getLongitude());
+                            startActivity(map);
+                        }
+                    }
+                };
             }
-
-
-
-
 
         };
         adapter.notifyDataSetChanged();
