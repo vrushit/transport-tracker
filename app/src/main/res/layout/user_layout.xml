@@ -33,6 +33,9 @@
             android:layout_height="50dp"
             android:layout_margin="0dp"
             android:src="@drawable/car_foreground"></ImageView>
+
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.cardview.widget.CardView>

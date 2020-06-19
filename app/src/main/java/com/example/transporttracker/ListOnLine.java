@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -57,6 +60,8 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
 
+    ImageButton trackMap;
+
     private static int UPDATE_INTERVAL = 5000;
     private static int FASTEST_INTERVAL = 3000;
     private static int DISTANCE =10;
@@ -77,6 +82,8 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
         listOnline.setLayoutManager(layoutManager);
 
         /// Set Toolbar and Logout /Join menu
+
+
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarListOnList);
         toolbar.setTitle("Presence System ");
@@ -193,6 +200,8 @@ if(resultCode != ConnectionResult.SUCCESS)
 
     private void updateList() {
 
+
+
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
                 .setQuery(counterRef,User.class)
@@ -210,24 +219,45 @@ if(resultCode != ConnectionResult.SUCCESS)
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ListOnlineViewHolder holder, int position, @NonNull final User model) {
+            protected void onBindViewHolder(@NonNull ListOnlineViewHolder holder, int position, final User model) {
                 holder.textEmail.setText(model.getEmail());
 
+                Toast.makeText(ListOnLine.this, "Email:" + model.getEmail(), Toast.LENGTH_SHORT).show();
+
                 //Implementing On Click Events
-                holder.itemClickListener = new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        //If model is current user, not set click event
-                        if(!model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
-                        {
-                            Intent map = new Intent(ListOnLine.this, TrackerActivity.class);
-                            map.putExtra("email", model.getEmail());
-                            map.putExtra("lat", mLastLocation.getLatitude());
-                            map.putExtra("lng", mLastLocation.getLongitude());
-                            startActivity(map);
-                        }
+
+
+//               holder.setItemClickListener(new ItemClickListener() {
+//                   @Override
+//                   public void onClick(View view, int position) {
+//                       if(!model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+//
+//                           Intent map = new Intent(ListOnLine.this, TrackerActivity.class);
+//                           map.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+//                           map.putExtra("lat", mLastLocation.getLatitude());
+//                           map.putExtra("lng", mLastLocation.getLongitude());
+//                           startActivity(map);
+//                       }
+//                   }
+//               });
+            holder.itemClickListener = new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    if(!model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+
+                        Intent map = new Intent(ListOnLine.this, TrackerActivity.class);
+                        map.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        map.putExtra("lat", mLastLocation.getLatitude());
+                        map.putExtra("lng", mLastLocation.getLongitude());
+                        startActivity(map);
                     }
-                };
+
+
+                }
+            };
+
+
+
             }
 
         };
