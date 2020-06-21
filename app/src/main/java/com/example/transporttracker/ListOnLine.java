@@ -261,8 +261,10 @@ if(resultCode != ConnectionResult.SUCCESS)
             }
 
         };
-        adapter.notifyDataSetChanged();
+        adapter.startListening();
         listOnline.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
 
     }
 
@@ -349,8 +351,13 @@ if(resultCode != ConnectionResult.SUCCESS)
             mGoogleApiClient.disconnect();
         }
 
+        if(adapter != null)
+        {
+            adapter.stopListening();
+
+        }
+
         super.onStop();
-        adapter.stopListening();
 
 
     }
