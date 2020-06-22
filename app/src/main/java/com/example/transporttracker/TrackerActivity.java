@@ -105,6 +105,7 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng),12.0f));
 
 
+
                 }
 
                 //Marker for Current User

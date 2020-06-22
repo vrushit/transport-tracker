@@ -137,6 +137,7 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
                 }
             }
         }
+        break;
     }
     }
 
@@ -166,7 +167,7 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
 
     private void createLocationRequest() {
 
-//        LocationRequest mLocationRequest = LocationRequest.create();
+        LocationRequest mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(5000);
         mLocationRequest.setFastestInterval(3000);
         mLocationRequest.setSmallestDisplacement(10);
@@ -246,7 +247,7 @@ if(resultCode != ConnectionResult.SUCCESS)
                     if(!model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
 
                         Intent map = new Intent(ListOnLine.this, TrackerActivity.class);
-                        map.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        map.putExtra("email", model.getEmail());
                         map.putExtra("lat", mLastLocation.getLatitude());
                         map.putExtra("lng", mLastLocation.getLongitude());
                         startActivity(map);
