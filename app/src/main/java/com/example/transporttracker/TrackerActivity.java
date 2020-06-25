@@ -3,6 +3,7 @@ package com.example.transporttracker;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +34,9 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
 
     private String email;
 
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
     DatabaseReference locations;
 
     Double lat, lng;
@@ -44,6 +49,24 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user == null){
+                    Intent intent = new Intent(TrackerActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    //Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 
         //Ref to Firebase
         locations = FirebaseDatabase.getInstance().getReference("Locations");

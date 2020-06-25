@@ -35,6 +35,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +49,9 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
     //Firebase
     DatabaseReference onlineRef, currentUserRef, counterRef, locations;
     FirebaseRecyclerAdapter<User,ListOnlineViewHolder> adapter;
+
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
 
     //View
     RecyclerView listOnline;
@@ -81,12 +85,31 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
         layoutManager = new LinearLayoutManager(this);
         listOnline.setLayoutManager(layoutManager);
 
+
+
+        //Firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user == null){
+                    Intent intent = new Intent(ListOnLine.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        };
+
+
         /// Set Toolbar and Logout /Join menu
 
 
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarListOnList);
-        toolbar.setTitle("Presence System ");
+        toolbar.setTitle("Main Activity");
         setSupportActionBar(toolbar);
 
         //Firebase
@@ -325,9 +348,14 @@ if(resultCode != ConnectionResult.SUCCESS)
                 counterRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .setValue(new User(FirebaseAuth.getInstance().getCurrentUser().getEmail(),"Online"));
             break;
-            case R.id.action_logout:
+            case R.id.action_remove:
                 currentUserRef.removeValue();
                 break;
+            case R.id.action_signout:
+                firebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(ListOnLine.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -335,7 +363,12 @@ if(resultCode != ConnectionResult.SUCCESS)
 
     @Override
     protected void onStart() {
+
         super.onStart();
+
+        firebaseAuth.addAuthStateListener(mAuthListener);
+
+
         adapter.startListening();
 
         if(mGoogleApiClient != null)
@@ -347,6 +380,7 @@ if(resultCode != ConnectionResult.SUCCESS)
     @Override
     protected void onStop() {
 
+        super.onStop();
         if(mGoogleApiClient != null)
         {
             mGoogleApiClient.disconnect();
@@ -358,7 +392,9 @@ if(resultCode != ConnectionResult.SUCCESS)
 
         }
 
-        super.onStop();
+        firebaseAuth.removeAuthStateListener(mAuthListener);
+
+
 
 
     }
@@ -366,6 +402,7 @@ if(resultCode != ConnectionResult.SUCCESS)
     @Override
     protected void onResume() {
         super.onResume();
+        firebaseAuth.addAuthStateListener(mAuthListener);
         checkPlayServices();
     }
 
