@@ -1,6 +1,5 @@
 package com.example.transporttracker;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +16,7 @@ public class ListOnlineViewHolder extends RecyclerView.ViewHolder implements Vie
     public ListOnlineViewHolder(@NonNull View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
-        textEmail = (TextView)itemView.findViewById(R.id.text_email);
+        textEmail = (TextView)itemView.findViewById(R.id.Name);
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {

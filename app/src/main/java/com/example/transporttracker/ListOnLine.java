@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -29,7 +27,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -80,7 +77,7 @@ public class ListOnLine extends AppCompatActivity implements GoogleApiClient.Con
 
         mLocationRequest = new LocationRequest();
 
-        listOnline = (RecyclerView)findViewById(R.id.listOnline);
+        listOnline = (RecyclerView)findViewById(R.id.locationOnline);
         listOnline.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         listOnline.setLayoutManager(layoutManager);

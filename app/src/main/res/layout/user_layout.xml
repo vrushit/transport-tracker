@@ -18,7 +18,7 @@
         >
 
         <TextView
-            android:id="@+id/text_email"
+            android:id="@+id/Name"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_weight="8"

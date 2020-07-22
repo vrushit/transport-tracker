@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListOnLine">
+    tools:context=".Locate">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarListOnList"
+        android:id="@+id/toolbarNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
+        android:background="#3F51B5"
+        app:titleTextColor="#FFFFFF">
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/locationOnline"
-        android:layout_below="@+id/toolbarListOnList"
+        android:id="@+id/storesOnline"
+        android:layout_below="@+id/toolbarNav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
-
 
 </RelativeLayout>

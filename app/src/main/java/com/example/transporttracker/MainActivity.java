@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button btnTrack;
-
+    Button btnMaintain;
     private FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnTrack = (Button)findViewById(R.id.btnTrack);
+        btnMaintain = (Button)findViewById(R.id.btn2);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -61,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ListOnLine.class);
+                startActivity(intent);
+            }
+        });
+
+        btnMaintain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
             }
         });
