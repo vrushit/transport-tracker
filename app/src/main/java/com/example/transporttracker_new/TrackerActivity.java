@@ -1,4 +1,4 @@
-package com.example.transporttracker;
+package com.example.transporttracker_new;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +25,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.util.function.DoubleUnaryOperator;
 
 public class TrackerActivity extends FragmentActivity implements OnMapReadyCallback {
 

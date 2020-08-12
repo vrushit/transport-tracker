@@ -1,4 +1,4 @@
-package com.example.transporttracker;
+package com.example.transporttracker_new;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Locale;
 
 public class Locate extends AppCompatActivity {
 
@@ -80,14 +83,6 @@ public class Locate extends AppCompatActivity {
                         .setQuery(storesRef,Place.class)
                         .build();
         adapter = new FirebaseRecyclerAdapter<Place, Location>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull Location holder, int position, @NonNull Place model) {
-
-                holder.nameLocation.setText(model.getName());
-                holder.phoneNo.setText(model.getPhoneNo());
-                holder.address.setText(model.getAddress());
-
-            }
 
             @NonNull
             @Override
@@ -99,6 +94,31 @@ public class Locate extends AppCompatActivity {
                 return new Location(view);
 
             }
+
+            @Override
+            protected void onBindViewHolder(@NonNull Location holder, int position, @NonNull final Place model) {
+
+                holder.nameLocation.setText(model.getName());
+                holder.phoneNo.setText(model.getPhoneNo());
+                holder.address.setText(model.getAddress());
+
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+
+
+                        float latitude = Float.parseFloat(model.getLatitude());
+                        float longitude = Float.parseFloat(model.getLongitude());
+
+                        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", latitude,longitude);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        startActivity(intent);
+                    }
+                });
+
+            }
+
+
         };
 
         listOnline.setAdapter(adapter);

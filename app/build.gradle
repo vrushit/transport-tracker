@@ -5,7 +5,7 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        applicationId "com.example.transporttracker"
+        applicationId "com.example.transporttracker_new"
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1

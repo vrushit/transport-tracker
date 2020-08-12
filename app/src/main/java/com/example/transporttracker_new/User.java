@@ -1,4 +1,4 @@
-package com.example.transporttracker;
+package com.example.transporttracker_new;
 
 public class User {
     private String email, status;
