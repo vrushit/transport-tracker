@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +41,8 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
     DatabaseReference locations;
 
     Double lat, lng;
+
+    LatLng dummyCar, dummyCurrent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,8 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
                     LatLng carLocation = new LatLng(Double.parseDouble(tracking.getLat()),
                             Double.parseDouble(tracking.getLng()));
 
+                    dummyCar = carLocation;
+
                     Location currUser = new Location("");
                     currUser.setLatitude(lat);
                     currUser.setLongitude(lng);
@@ -109,9 +116,12 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
                     car.setLatitude(Double.parseDouble(tracking.getLat()));
                     car.setLongitude(Double.parseDouble(tracking.getLng()));
 
-                    //Function for calculating distance between locations
-                    distance(currUser, car);
 
+                    //Function for calculating distance between locations
+
+
+                    distance(currUser, car);
+                    //polyLineFunc(carLocation);
                     //Clear all old markers
                     mMap.clear();
 
@@ -125,16 +135,13 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
 
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng),12.0f));
 
-
-
                 }
 
                 //Marker for Current User
 
                 LatLng current = new LatLng(lat,lng);
+                dummyCurrent = current;
                 mMap.addMarker(new MarkerOptions().position(current).title(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
-
-
 
             }
 
@@ -145,8 +152,14 @@ public class TrackerActivity extends FragmentActivity implements OnMapReadyCallb
         });
     }
 
+
+
+
     private double distance(Location currentUser, Location car)
     {
+
+
+
         double theta = currentUser.getLongitude() - car.getLongitude();
         double dist = Math.sin(deg2rad(currentUser.getLatitude()))
                         * Math.sin(deg2rad(car.getLatitude()))
